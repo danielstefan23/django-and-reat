@@ -1,0 +1,7 @@
+<select id="payment_days" required>
+    {% if days == 1 %}
+        <option value="{{ days }}">{{ days }} zi</p>
+    {% else %}
+        <option value="{{ days }}">{{ days }} zile</p>
+    {% endif %}
+</select>

@@ -1,0 +1,32 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <h1>Internari</h1>
+        <hr>
+        <table class = "appointment">
+            <tr>
+                <th>Camera</th>
+                <th>Pacient</th>
+                <th>Data internarii</th>
+                <th>Pat</th>
+            </tr>
+            {% for hospitalization in hospitalizations %}
+                <tr>
+                    <td>{{ hospitalization.room }}</td>
+                    <td>{{ hospitalization.patient }}</td>
+                    <td>{{ hospitalization.admission_date }}</td>
+                    <td>{{ hospitalization.occupied_bed }}</td>
+                    <td>
+                        <form method = "post" action="{% url 'delete_hospitlization' pk=hospitalization.pk%}">
+                            {% csrf_token %}
+                            <input type="submit" value='Sterge' class="btn btn-warning">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

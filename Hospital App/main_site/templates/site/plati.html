@@ -1,0 +1,67 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form>
+            <h1>Plati</h1>
+            <hr>
+            <h2>Pacient</h2>
+            <select id="id_patient" name="patient"required>
+                <option value="" selected disabled hidden>Alege pacient</option>
+                {% for patient in patients %}
+                    <option value="{{ patient.identifier }}">{{ patient }}</option>
+                {% endfor %}
+            </select>
+            <h2>Internare- numar zile</h2>
+            <div id="id_number_of_days"></div>
+            <h2>Metoda de plata</h2>
+            <select id="payment_method" required>
+                <option value="" selected disabled hidden>Alege metoda de plata</option>
+                <option value="Card">Card</option>
+                <option value="Cash">Cash</option>
+            </select>
+            <h2>Total de plata</h2>
+            <div id="id_payment"></div>
+        </form>
+        <br>
+        <button onclick = "location.href = '/'; ">Plateste</button>
+        <button onclick = "location.href = '/'; ">Anuleaza</button>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $("#payment_method").change(function () {
+              var url = "{% url 'ajax_load_payment' %}";
+              var days = $("#payment_days").val();
+  
+              $.ajax({
+                url: url,
+                data: {
+                  'days': days
+                },
+                success: function (data) {
+                  $("#id_payment").html(data);
+                }
+              });
+            });
+        </script>
+
+        <script>
+          $("#id_patient").change(function () {
+            var url = "{% url 'ajax_load_days' %}";
+            var patient = $(this).val();
+      
+            $.ajax({
+              url: url,
+              data: {
+                'patient': patient
+              },
+              success: function (data) {
+                $("#id_number_of_days").html(data);
+              }
+            });
+          });
+        </script>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form method="post" action="{% url 'profiles' pk=current_user.pk%}">
+            {% csrf_token %}
+            <h1>Profil</h1>
+            <hr>
+            <h2>Nume utilizator</h2>
+            <p>{{current_user.username}}</p>
+            <h2>Email</h2>
+            <p>{{current_user.email}}</p>
+            <h2>ID</h2>
+            {% if current_user.is_superuser %}
+                <p>Admin {{current_user.id}}</p>
+            {% else %}
+                <p>{{current_user.id}}</p>
+            {% endif %}
+            <h2>Job</h2>
+            <p>{{current_user.job}}</p>
+            <h2>Grupa sanguina</h2>
+            <p>{{current_user.grupa_sanguina}}</p>
+            {% if user.is_superuser or user == current_user %}
+                <h2>Schimba Parola</h2>
+                <div class="form-group">
+                    <label for="{{ form.id_old_password }}">Parola Veche</label>
+                    {{ form.old_password }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.id_new_password1 }}">Parola Noua</label>
+                    {{ form.new_password1 }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.id_new_password2 }}">Repeta parola noua</label>
+                    {{ form.new_password2 }}
+                </div>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %} 
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <button type="submit">Salveaza</button>
+            {% endif %}
+        </form>
+        <button onclick = "location.href = '/'; ">Anuleaza</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form method="post" action="{% url 'rooms' %}">
+            {% csrf_token %}
+            <h1>Camere</h1>
+            <hr>
+            <h2 for="id_room">Numarul camerei</h2>
+            <select id="id_room" name="room" required>
+                <option value="" selected disabled hidden>Alege camera</option>
+                {% for room in rooms %}
+                    <option value="{{ room.pk }}">{{ room }}</option>
+                {% endfor %}
+            </select>
+            <h2 for="id_patient">Pacient</h2>
+            <select id="id_patient" name="patient" required>
+                <option value="" selected disabled hidden>Alege pacientul</option>
+                {% for patient in patients %}
+                    <option value="{{ patient.pk }}">{{ patient }}</option>
+                {% endfor %}
+            </select>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <br><br>
+            <button type="submit">Interneaza</button>
+            <button onclick = "location.href = '/'; ">Anuleaza</button>
+            <button onclick = "location.href = 'http://127.0.0.1:8000/hospitalizations/view/'; ">Lista pacineti internati</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

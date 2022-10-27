@@ -1,0 +1,32 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <h1>Programari</h1>
+        <hr>
+        <table class = "appointment">
+            <tr>
+                <th>Specializare</th>
+                <th>Doctor</th>
+                <th>Pactient</th>
+                <th>Data</th>
+            </tr>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.treatment_type }}</td>
+                    <td>{{ appointment.doctor }}</td>
+                    <td>{{ appointment.patient }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>
+                        <form method = "post" action="{% url 'delete_appointment' pk=appointment.pk%}">
+                            {% csrf_token %}
+                            <input type="submit" value='Sterge' class="btn btn-warning">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

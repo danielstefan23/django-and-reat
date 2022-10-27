@@ -1,0 +1,15 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <h1>{{ title }}</h1>
+        <hr>
+        {% for job in jobs %}
+            <div>
+                <p><a href="{% url 'profiles' pk=job.pk %}">{{ job.username|linebreaksbr }}</a></p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

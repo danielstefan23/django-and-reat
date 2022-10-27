@@ -1,0 +1,40 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form method="post" action="{% url 'add_patient' %}">
+            {% csrf_token %}
+            <h1>Adauga pacienti</h1>
+            <hr>
+            <h2 for="id_first_name">Nume</h2>
+            <input id="id_first_name" type="text" name="first_name" required>
+            <h2 for="id_last_name">Prenume</h2>
+            <input id="id_last_name" type="text" name="last_name" required>
+            <h2 for="id_identifier">C.N.P.</h2>
+            <input id="id_identifier" type="text" name="identifier" required>
+            <h2 for="id_sex">Sex</h2>
+            <select id="id_sex" name="sex" required>
+                <option value="" selected disabled hidden>Alege sex-ul</option>
+                <option value="Masculin">Masculin</option>
+                <option value="Feminin">Feminin</option>
+            </select>
+            <h2 for="id_blood_type">Grupa sanguina</h2>
+            <select id="id_blood_type" name="blood_type" required>
+                <option value="" selected disabled hidden>Alege grupa sanguina</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+            <br><br>
+            <button type="submit">Adauga</button>
+            <button onclick = "location.href = '/'; ">Anuleaza</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

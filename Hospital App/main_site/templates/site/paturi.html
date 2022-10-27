@@ -1,0 +1,24 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form>
+            <h1>Paturi</h1>
+            <hr>
+            <h2>Numarul camerei</h2>
+            <input type="text" name="Numarul camerei">
+            <h2>ID pacient</h2>
+            <input type="text" name="ID Pacient">
+            <h2>Numarul patului</h2>
+            <input type="text" name="Numarul patului">
+            <h2>Data internarii</h2>
+            <input type="text" name="Data internarii">
+        </form>
+        <br>
+        <button>Interneaza</button>
+        <button onclick = "location.href = '/'; ">Anuleaza</button>
+        <button>Lista pacineti internati</button>
+    </div>
+</div>
+{% endblock %}

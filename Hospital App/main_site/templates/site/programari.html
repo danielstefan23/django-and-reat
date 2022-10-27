@@ -1,0 +1,70 @@
+{% extends "site/index.html" %}
+
+{% block content %}
+<div id="main-content" class="section">
+    <div class="box2">
+        <form method="post" id="appointmentForm" data-doctors-url="{% url 'ajax_load_doctors' %}">
+            {% csrf_token %}
+            <h1>Programari</h1>
+            <hr>
+            <h2 for="id_treatment_type" >Specializare</h2>
+            <select id="id_treatment_type" name="treatment_type" required>
+                <option value="" selected disabled hidden>Alege specializarea</option>
+                {% for treatment in treatments %}
+                    {% for specializare in treatment %}
+                        <option value="{{ specializare }}">{{ specializare }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <h2 for="id_doctor">Doctor</h2>
+            {{ form.doctor }}
+            <h2 for="id_date">Data</h2>
+            <select id="id_date" name="date" required>
+              <option value="" selected disabled hidden>Alege data</option>
+              {% for date in dates %}
+                  <option value="{{ date.pk }}">{{ date }}</option>
+              {% endfor %}
+            </select>
+            <h2 for="id_patient">Pacient</h2>
+            <select id="id_patient" name="patient" required>
+              <option value="" selected disabled hidden>Alege pacientul</option>
+              {% for patient in patients %}
+                    <option value="{{ patient.pk }}">{{ patient }}</option>
+              {% endfor %}
+            </select>
+            <br><br>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                    <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                    </div>
+                    <br>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <button type="submit">Adauga</button>
+            <button onclick = "location.href = '/'; ">Anuleaza</button>
+            <button onclick = "location.href = 'http://127.0.0.1:8000/appointments/view/'; ">Lista programari</button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+          $("#id_treatment_type").change(function () {
+            var url = $("#appointmentForm").attr("data-doctors-url");
+            var treatment = $(this).val();
+      
+            $.ajax({
+              url: url,
+              data: {
+                'treatment_type': treatment
+              },
+              success: function (data) {
+                $("#id_doctor").html(data);
+              }
+            });
+          });
+        </script>
+    </div>
+</div>
+{% endblock %}
