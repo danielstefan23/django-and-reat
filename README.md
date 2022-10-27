@@ -1,1 +1,1 @@
-# django-and-reat
+# djangodadas-and-reat
